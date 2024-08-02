@@ -18,6 +18,7 @@ import json
 import os
 import pep8
 import unittest
+from models import storage
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
@@ -66,6 +67,26 @@ test_db_storage.py'])
                              "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
+            
+    def test_get(self):
+        """Test get method"""
+        retrieved_user = storage.get(User, self.user.id)
+        self.assertIsNotNone(retrieved_user)
+        self.assertEqual(retrieved_user.id, self.user.id)
+
+        # Test retrieving a non-existent object
+        self.assertIsNone(storage.get(User, "non_existent_id"))
+
+    def test_count(self):
+        """Test count method"""
+        initial_count = storage.count()
+
+        # Test counting all objects
+        self.assertEqual(storage.count(), initial_count)
+
+        # Test counting User objects
+        user_count = storage.count(User)
+        self.assertEqual(user_count, 1)
 
 
 class TestFileStorage(unittest.TestCase):
