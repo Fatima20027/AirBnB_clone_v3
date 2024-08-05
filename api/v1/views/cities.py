@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Route for handling State objects and operations.
+Route for handling City objects and operations within a State.
 """
 from flask import jsonify, abort, request
 from api.v1.views import app_views
