@@ -81,7 +81,7 @@ def update_city(city_id):
 
     request_data = request.get_json()
     for key, value in request_data.items():
-        if key not in ['id', 'created_at', 'updated_at']:
+        if key not in ["id", "created_at", "updated_at", "state_id"]:
             setattr(city, key, value)
     city.save()
-    return jsonify(city.to_dict()), 200
+    return jsonify(city.to_json()), 200
